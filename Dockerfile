@@ -1,7 +1,9 @@
-FROM centos:latest
-RUN yum -y install httpd
+FROM ubuntu
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update
+RUN apt-get install apache2 -y
+RUN apt-get install apache2-utils -y
+RUN apt-get clean
 COPY ./html/ /usr/local/apache2/htdocs/
-CMD [“/usr/sbin/httpd”, “-D”, “FOREGROUND”]
 EXPOSE 80
-
-
+CMD ["apache2ctl","-D","FOREGROUND"]
